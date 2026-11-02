@@ -79,8 +79,10 @@
 
   function renderSupports() {
     const group = data.supportGroups[state.support];
-    $("#support-title").textContent = group.label;
     const chart = $("#support-chart");
+    if (!chart) return;
+    const title = $("#support-title");
+    if (title) title.textContent = group.label;
     chart.innerHTML = "";
     group.rows.forEach(([label, stay, undecided]) => {
       const wrapper = document.createElement("div");
@@ -212,17 +214,17 @@
       activateTab(tabs[nextIndex]);
     });
   });
-  $("#sector-select").addEventListener("change", event => {
+  $("#sector-select")?.addEventListener("change", event => {
     state.sector = event.target.value;
     renderMetrics();
     renderProfile();
     renderRetention();
   });
-  $("#metric-select").addEventListener("change", event => {
+  $("#metric-select")?.addEventListener("change", event => {
     state.metric = event.target.value;
     renderWorkload();
   });
-  $("#support-select").addEventListener("change", event => {
+  $("#support-select")?.addEventListener("change", event => {
     state.support = event.target.value;
     renderSupports();
   });
